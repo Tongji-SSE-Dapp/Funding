@@ -1,26 +1,51 @@
 <template>
   <div>
-    <a-button type="primary" @click="openModal" v-if="account === data.initiator && data.success">发起使用请求</a-button>
-    <a-table :loading="state.loading" :data-source="state.data" :columns="columns">
+    <a-button 
+      type="primary" 
+      class="btn-launch-request"
+      @click="openModal" 
+      v-if="account === data.initiator && data.success"
+    >
+      发起使用请求
+    </a-button>
+
+    <a-table 
+      class="custom-table" 
+      :loading="state.loading" 
+      :data-source="state.data" 
+      :columns="columns"
+    >
       <template #expandedRowRender="{ record }">
-        <p style="margin: 0">
+        <p class="expanded-row">
           {{ record.info }}
         </p>
       </template>
       <template #over="{text, record}">
-        <a-tag color="processing" v-if="record.over === false" >
+        <a-tag 
+          class="status-tag" 
+          color="processing" 
+          v-if="record.over === false"
+        >
           <template #icon>
             <sync-outlined :spin="true" />
           </template>
           正在等待通过
         </a-tag>
-        <a-tag color="success" v-else-if="record.agreeAmount >= record.goal / 2">
+        <a-tag 
+          class="status-tag" 
+          color="success" 
+          v-else-if="record.agreeAmount >= record.goal / 2"
+        >
           <template #icon>
             <check-circle-outlined />
           </template>
           批准使用
         </a-tag>
-        <a-tag color="error" v-else>
+        <a-tag 
+          class="status-tag" 
+          color="error" 
+          v-else
+        >
           <template #icon>
             <close-circle-outlined />
           </template>
@@ -28,24 +53,111 @@
         </a-tag>
       </template>
       <template #action="{text, record}" v-if="amount != 0">
-        <a-button v-if="(record.agree == 0 || record.agree == 2) && record.over === false" type="primary" @click="clickAgreeUse(true, record.index)">
+        <a-button 
+          class="btn-agree" 
+          v-if="(record.agree == 0 || record.agree == 2) && record.over === false" 
+          type="primary" 
+          @click="clickAgreeUse(true, record.index)"
+        >
           同意
         </a-button>
-        <a-divider type="vertical"></a-divider>
-        <a-button v-if="(record.agree == 0 || record.agree == 1) && record.over === false" type="danger" @click="clickAgreeUse(false, record.index)">
+        <a-divider class="action-divider" type="vertical"></a-divider>
+        <a-button 
+          class="btn-disagree" 
+          v-if="(record.agree == 0 || record.agree == 1) && record.over === false" 
+          type="danger" 
+          @click="clickAgreeUse(false, record.index)"
+        >
           不同意
         </a-button>
       </template>
     </a-table>
 
     <Modal v-model:visible="isOpen">
-      <a-card style="width: 600px; margin: 0 2em;" :body-style="{ overflowY: 'auto', maxHeight: '600px' }">
-        <template #title><h3 style="text-align: center">发起使用请求</h3></template>
+      <a-card 
+        class="modal-card" 
+        style="width: 600px; margin: 0 2em;" 
+        :body-style="{ overflowY: 'auto', maxHeight: '600px' }"
+      >
+        <template #title>
+          <h3 class="modal-title">发起使用请求</h3>
+        </template>
         <create-form :model="model" :form="form" :fields="fields" />
       </a-card>
     </Modal>
   </div>
 </template>
+
+<style scoped>
+.btn-launch-request {
+  margin-bottom: 16px;
+  background-color: #1890ff;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.btn-launch-request:hover {
+  background-color: #40a9ff;
+  color: #fff;
+}
+
+.custom-table {
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.expanded-row {
+  margin: 0;
+  color: #595959;
+  font-size: 14px;
+}
+
+.status-tag {
+  font-size: 14px;
+  padding: 0 8px;
+}
+
+.btn-agree {
+  background-color: #52c41a;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.btn-agree:hover {
+  background-color: #73d13d;
+  color: #fff;
+}
+
+.btn-disagree {
+  background-color: #ff4d4f;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.btn-disagree:hover {
+  background-color: #ff7875;
+  color: #fff;
+}
+
+.action-divider {
+  margin: 0 8px;
+}
+
+.modal-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+}
+
+.modal-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+</style>
+
 
 <script lang="ts">
 import { message } from 'ant-design-vue';

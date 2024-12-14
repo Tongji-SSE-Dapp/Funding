@@ -1,77 +1,72 @@
 <template>
   <div>
-    <a-card 
-      class="ant-card-shadow" 
-      :loading="state.loading" 
-      :tab-list="tabList"
-      :active-tab-key="key"
-      @tabChange="onTabChange"
-    >
-      <template #title>
-        <h3>
-          {{state.data.title}}
-          <span style="float:right">
-            你投资了 {{state.myAmount}} Eth
-            <a-button type="primary" v-if="new Date(state.data.endTime * 1000) > new Date() && state.data.success == false" @click="openModal">我要投资</a-button>
-            <a-button type="danger" v-if="!state.data.success && state.myAmount != 0" @click="returnM">退钱！</a-button>
-          </span>
-        </h3>
-      </template>
-      <a-descriptions bordered v-if="key==='info'">
-        <a-descriptions-item label="众筹标题" :span="2">
-          {{state.data.title}}
-        </a-descriptions-item>
-        <a-descriptions-item label="众筹发起人" :span="2">
-          {{state.data.initiator}}
-        </a-descriptions-item>
-        <a-descriptions-item label="截止日期" :span="2">
-           {{new Date(state.data.endTime * 1000).toLocaleString()}}
-        </a-descriptions-item>
-        <a-descriptions-item label="当前状态">
-          <a-tag color="success" v-if="state.data.success === true">
-            <template #icon>
-              <check-circle-outlined />
-            </template>
-            众筹成功
-          </a-tag>
-          <a-tag color="processing" v-else-if="new Date(state.data.endTime * 1000) > new Date()" >
-            <template #icon>
-              <sync-outlined :spin="true" />
-            </template>
-            正在众筹
-          </a-tag>
-          <a-tag color="error" v-else>
-            <template #icon>
-              <close-circle-outlined />
-            </template>
-            众筹失败
-          </a-tag>
-        </a-descriptions-item>
-        <a-descriptions-item label="目标金额">
-          <a-statistic :value="state.data.goal">
-            <template #suffix>
-              Eth
-            </template>
-          </a-statistic>
-        </a-descriptions-item>
-        <a-descriptions-item label="当前金额">
-          <a-statistic :value="state.data.amount">
-            <template #suffix>
-              Eth
-            </template>
-          </a-statistic>
-        </a-descriptions-item>
-        <a-descriptions-item label="众筹进度">
-          <a-progress type="circle" :percent="state.data.success ? 100 : state.data.amount * 100 / state.data.goal" :width="80" />
-        </a-descriptions-item>
-        <a-descriptions-item label="众筹介绍">
-          {{state.data.info}}
-        </a-descriptions-item>
-      </a-descriptions>
+    <h2>项目介绍</h2>
+    <template>
+      
+      <h3>
+        {{state.data.title}}
+        <span style="float:right">
+          你投资了 {{state.myAmount}} Eth
+          <a-button type="primary" v-if="new Date(state.data.endTime * 1000) > new Date() && state.data.success == false" @click="openModal">我要投资</a-button>
+          <a-button type="danger" v-if="!state.data.success && state.myAmount != 0" @click="returnM">退钱！</a-button>
+        </span>
+      </h3>
+    </template>
+    <a-descriptions bordered >
+      <a-descriptions-item label="众筹标题" :span="3">
+        {{state.data.title}}
+      </a-descriptions-item>
+      <a-descriptions-item label="众筹发起人" :span="3">
+        {{state.data.initiator}}
+      </a-descriptions-item>
+      <a-descriptions-item label="截止日期" :span="3">
+          {{new Date(state.data.endTime * 1000).toLocaleString()}}
+      </a-descriptions-item>
+      <a-descriptions-item label="当前状态" :span="3">
+        <a-tag color="success" v-if="state.data.success === true">
+          <template #icon>
+            <check-circle-outlined />
+          </template>
+          众筹成功
+        </a-tag>
+        <a-tag color="processing" v-else-if="new Date(state.data.endTime * 1000) > new Date()" >
+          <template #icon>
+            <sync-outlined :spin="true" />
+          </template>
+          正在众筹
+        </a-tag>
+        <a-tag color="error" v-else>
+          <template #icon>
+            <close-circle-outlined />
+          </template>
+          众筹失败
+        </a-tag>
+      </a-descriptions-item>
+      <a-descriptions-item label="目标金额" :span="3">
+        <a-statistic :value="state.data.goal" >
+          <template #suffix>
+            Eth
+          </template>
+        </a-statistic>
+      </a-descriptions-item>
+      <a-descriptions-item label="当前金额" :span="3">
+        <a-statistic :value="state.data.amount">
+          <template #suffix>
+            Eth
+          </template>
+        </a-statistic>
+      </a-descriptions-item>
+      <a-descriptions-item label="众筹进度" :span="3">
+        <a-progress type="circle" :percent="state.data.success ? 100 : state.data.amount * 100 / state.data.goal" :width="80" />
+      </a-descriptions-item>
+      <a-descriptions-item label="众筹介绍" :span="3">
+        {{state.data.info}}
+      </a-descriptions-item>
+    </a-descriptions>
 
-      <Use v-if="key==='use'" :id="id" :data="state.data" :amount="state.myAmount"></Use>
+    <h2>使用请求</h2>
 
-    </a-card>
+    <Use  :id="id" :data="state.data" :amount="state.myAmount"></Use>
 
     <Modal v-model:visible="isOpen">
       <a-card style="width: 600px; margin: 0 2em;" :body-style="{ overflowY: 'auto', maxHeight: '600px' }">
@@ -99,16 +94,7 @@ const column = [
   }
 ]
 
-const tabList = [
-  {
-    key: 'info',
-    tab: '项目介绍',
-  },
-  {
-    key: 'use',
-    tab: '使用请求',
-  },
-];
+
 
 export default defineComponent({
   name: 'Funding',
@@ -192,7 +178,7 @@ export default defineComponent({
     getAccount().then(res => account.value = res)
     fetchData();
 
-    return {state, account, isOpen, openModal, form, model, fields, tabList, key, onTabChange, id, returnM}
+    return {state, account, isOpen, openModal, form, model, fields, key, onTabChange, id, returnM}
   }
 });
 </script>
