@@ -1,73 +1,111 @@
 <template>
-  <div>
-    <a-card class="ant-card-shadow">
+  <div class="fancy-container">
+    <a-card class="ant-card-shadow fancy-card">
       <template #title>
-        <h3>
-          我发起的
-        </h3>
+        <div class="fancy-title-container">
+          <h3 class="fancy-title">我发起的</h3>
+          <div class="fancy-title-decoration"></div>
+        </div>
       </template>
-      <a-table :columns="columns" :loading="state.loading" :data-source="state.init">
+      <a-table
+          class="fancy-table"
+          :columns="columns"
+          :loading="state.loading"
+          :data-source="state.init"
+          bordered
+      >
         <template #time="{text, record}">
-          {{new Date(text * 1000).toLocaleString()}}
+          <span class="fancy-time">{{new Date(text * 1000).toLocaleString()}}</span>
         </template>
         <template #tag="{text, record}">
-          <a-tag color="success" v-if="record.success === true">
+          <a-tag
+              class="fancy-tag"
+              color="success"
+              v-if="record.success === true"
+          >
             <template #icon>
-              <check-circle-outlined />
+              <check-circle-outlined class="fancy-icon" />
             </template>
             众筹成功
           </a-tag>
-          <a-tag color="processing" v-else-if="new Date(record.endTime * 1000) > new Date()" >
+          <a-tag
+              class="fancy-tag"
+              color="processing"
+              v-else-if="new Date(record.endTime * 1000) > new Date()"
+          >
             <template #icon>
-              <sync-outlined :spin="true" />
+              <sync-outlined :spin="true" class="fancy-icon" />
             </template>
             正在众筹
           </a-tag>
-          <a-tag color="error" v-else>
+          <a-tag
+              class="fancy-tag"
+              color="error"
+              v-else
+          >
             <template #icon>
-              <close-circle-outlined />
+              <close-circle-outlined class="fancy-icon" />
             </template>
             众筹失败
           </a-tag>
         </template>
         <template #action="{text, record}">
-          <a @click="clickFunding(record.index)">查看详情</a>
+          <a @click="clickFunding(record.index)" class="fancy-link">查看详情</a>
         </template>
       </a-table>
     </a-card>
 
-    <a-card class="ant-card-shadow" style="margin-top: 1em;">
+    <a-card class="ant-card-shadow fancy-card" style="margin-top: 1em;">
       <template #title>
-        <h3>
-          我投资的
-        </h3>
+        <div class="fancy-title-container">
+          <h3 class="fancy-title">我投资的</h3>
+          <div class="fancy-title-decoration"></div>
+        </div>
       </template>
-      <a-table :columns="columns" :loading="state.loading" :data-source="state.contr">
+      <a-table
+          class="fancy-table"
+          :columns="columns"
+          :loading="state.loading"
+          :data-source="state.contr"
+          bordered
+      >
         <template #time="{text, record}">
-          {{new Date(text * 1000).toLocaleString()}}
+          <span class="fancy-time">{{new Date(text * 1000).toLocaleString()}}</span>
         </template>
         <template #tag="{text, record}">
-          <a-tag color="success" v-if="record.success === true">
+          <a-tag
+              class="fancy-tag"
+              color="success"
+              v-if="record.success === true"
+          >
             <template #icon>
-              <check-circle-outlined />
+              <check-circle-outlined class="fancy-icon" />
             </template>
             众筹成功
           </a-tag>
-          <a-tag color="processing" v-else-if="new Date(record.endTime * 1000) > new Date()" >
+          <a-tag
+              class="fancy-tag"
+              color="processing"
+              v-else-if="new Date(record.endTime * 1000) > new Date()"
+          >
             <template #icon>
-              <sync-outlined :spin="true" />
+              <sync-outlined :spin="true" class="fancy-icon" />
             </template>
             正在众筹
           </a-tag>
-          <a-tag color="error" v-else>
+          <a-tag
+              class="fancy-tag"
+              color="error"
+              v-else
+          >
             <template #icon>
-              <close-circle-outlined />
+              <close-circle-outlined class="fancy-icon" />
             </template>
             众筹失败
           </a-tag>
         </template>
         <template #action="{text, record}">
-          <a @click="clickFunding(record.index)">查看详情</a>
+          <a @click="clickFunding(record.index)" class="fancy-link">查看详情</a>
         </template>
       </a-table>
     </a-card>
@@ -161,3 +199,84 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.fancy-container {
+  padding: 1em;
+  background: linear-gradient(to bottom right, #f0f5ff, #e6f7ff);
+  transition: all 0.5s ease;
+}
+
+.fancy-card {
+  background: linear-gradient(to bottom right, #ffffff 0%, #f6f9ff 100%);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+.fancy-card:hover {
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.fancy-title-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.fancy-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  background: linear-gradient(45deg, #1890ff, #52c41a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.fancy-title-decoration {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, #1890ff, #52c41a);
+  margin-left: 1em;
+  border-radius: 2px;
+}
+
+.fancy-table {
+  background: transparent;
+}
+
+.fancy-time {
+  font-weight: bold;
+  color: #555;
+  transition: color 0.3s;
+}
+.fancy-time:hover {
+  color: #1890ff;
+}
+
+.fancy-link {
+  color: #1890ff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+.fancy-link:hover {
+  color: #52c41a;
+}
+
+.fancy-tag {
+  font-weight: bold;
+  animation: glow 2s infinite ease-in-out alternate;
+}
+.fancy-icon {
+  margin-right: 0.3em;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px rgba(24,144,255,0.2);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(24,144,255,0.8);
+  }
+}
+</style>

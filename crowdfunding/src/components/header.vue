@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav :class="['nav', {'nav-active': scrollTop > 0}]">
-      <a class="logo"><img src="/logo2.png" alt="Logo"></a>
+      <a class="logo"><img src="/logo.png" alt="Logo"></a>
       <router-link to="/">所有众筹</router-link>
       <router-link to="/myself">我的众筹</router-link>
       <span :style="{ flex: 1 }"></span>
@@ -43,7 +43,7 @@ export default defineComponent({
 <style scoped>
 header {
   height: 100vh; /* Set header height to fill the entire viewport */
-  background: url("/header2.png") no-repeat center center/contain; /* Ensure the image scales proportionally */
+  background: url("/header.png") no-repeat center center/contain; /* Ensure the image scales proportionally */
   background-color: #f0f0f0; /* Fallback background color */
   position: relative;
 }

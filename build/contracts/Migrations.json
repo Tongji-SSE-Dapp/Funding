@@ -53,7 +53,7 @@
   "sourceMap": "69:367:1:-;;;117:10;94:33;;;;;;;;;;;;;;;;;;;;69:367;8:9:-1;5:2;;;30:1;27;20:12;5:2;69:367:1;;;;;;;",
   "deployedSourceMap": "69:367:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;69:367:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;132:36;;;:::i;:::-;;;;;;;;;;;;;;;;;;;94:33;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;328:105;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;328:105:1;;;;;;;;;;;;;;;;;:::i;:::-;;132:36;;;;:::o;94:33::-;;;;;;;;;;;;;:::o;328:105::-;234:5;;;;;;;;;;;220:19;;:10;:19;;;204:104;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;418:9;391:24;:36;;;;328:105;:::o",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity >=0.4.22 <0.9.0;\r\n\r\ncontract Migrations {\r\n  address public owner = msg.sender;\r\n  uint public last_completed_migration;\r\n\r\n  modifier restricted() {\r\n    require(\r\n      msg.sender == owner,\r\n      \"This function is restricted to the contract's owner\"\r\n    );\r\n    _;\r\n  }\r\n\r\n  function setCompleted(uint completed) public restricted {\r\n    last_completed_migration = completed;\r\n  }\r\n}\r\n",
-  "sourcePath": "C:\\D\\CodeFile\\Funding\\contracts\\Migrations.sol",
+  "sourcePath": "C:\\Users\\wang9\\Documents\\GitHub\\crowdfunding-dapp\\contracts\\Migrations.sol",
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
@@ -915,12 +915,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x30416E0FAC25cc9F20fAEeE1Bd92C3a676ee07c7",
-      "transactionHash": "0xa293a2f663184def270289442e61769a8c5395f679fc92ddd8110039e3d39353"
+      "address": "0xf9fd27e46bdF0557f1327dC25238eb79AB8DC957",
+      "transactionHash": "0xa7d78d5f179bf3687ffd7f34ae8d74bb7b1a67b10ad8b87efb09ceba863de73b"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-12-13T16:46:02.090Z",
+  "updatedAt": "2024-12-14T11:17:01.186Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

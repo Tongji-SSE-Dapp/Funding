@@ -1,19 +1,19 @@
 <template>
   <div>
-    <a-button 
-      type="primary" 
-      class="btn-launch-request"
-      @click="openModal" 
-      v-if="account === data.initiator && data.success"
+    <a-button
+        type="primary"
+        class="btn-launch-request"
+        @click="openModal"
+        v-if="account === data.initiator && data.success"
     >
       发起使用请求
     </a-button>
 
-    <a-table 
-      class="custom-table" 
-      :loading="state.loading" 
-      :data-source="state.data" 
-      :columns="columns"
+    <a-table
+        class="custom-table"
+        :loading="state.loading"
+        :data-source="state.data"
+        :columns="columns"
     >
       <template #expandedRowRender="{ record }">
         <p class="expanded-row">
@@ -21,30 +21,30 @@
         </p>
       </template>
       <template #over="{text, record}">
-        <a-tag 
-          class="status-tag" 
-          color="processing" 
-          v-if="record.over === false"
+        <a-tag
+            class="status-tag"
+            color="processing"
+            v-if="record.over === false"
         >
           <template #icon>
             <sync-outlined :spin="true" />
           </template>
           正在等待通过
         </a-tag>
-        <a-tag 
-          class="status-tag" 
-          color="success" 
-          v-else-if="record.agreeAmount >= record.goal / 2"
+        <a-tag
+            class="status-tag"
+            color="success"
+            v-else-if="record.agreeAmount >= record.goal / 2"
         >
           <template #icon>
             <check-circle-outlined />
           </template>
           批准使用
         </a-tag>
-        <a-tag 
-          class="status-tag" 
-          color="error" 
-          v-else
+        <a-tag
+            class="status-tag"
+            color="error"
+            v-else
         >
           <template #icon>
             <close-circle-outlined />
@@ -53,20 +53,20 @@
         </a-tag>
       </template>
       <template #action="{text, record}" v-if="amount != 0">
-        <a-button 
-          class="btn-agree" 
-          v-if="(record.agree == 0 || record.agree == 2) && record.over === false" 
-          type="primary" 
-          @click="clickAgreeUse(true, record.index)"
+        <a-button
+            class="btn-agree"
+            v-if="(record.agree == 0 || record.agree == 2) && record.over === false"
+            type="primary"
+            @click="clickAgreeUse(true, record.index)"
         >
           同意
         </a-button>
         <a-divider class="action-divider" type="vertical"></a-divider>
-        <a-button 
-          class="btn-disagree" 
-          v-if="(record.agree == 0 || record.agree == 1) && record.over === false" 
-          type="danger" 
-          @click="clickAgreeUse(false, record.index)"
+        <a-button
+            class="btn-disagree"
+            v-if="(record.agree == 0 || record.agree == 1) && record.over === false"
+            type="danger"
+            @click="clickAgreeUse(false, record.index)"
         >
           不同意
         </a-button>
@@ -74,10 +74,10 @@
     </a-table>
 
     <Modal v-model:visible="isOpen">
-      <a-card 
-        class="modal-card" 
-        style="width: 600px; margin: 0 2em;" 
-        :body-style="{ overflowY: 'auto', maxHeight: '600px' }"
+      <a-card
+          class="modal-card"
+          style="width: 600px; margin: 0 2em;"
+          :body-style="{ overflowY: 'auto', maxHeight: '600px' }"
       >
         <template #title>
           <h3 class="modal-title">发起使用请求</h3>

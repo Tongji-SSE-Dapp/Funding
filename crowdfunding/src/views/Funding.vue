@@ -2,7 +2,7 @@
   <div>
     <h2>项目介绍</h2>
     <template>
-      
+
       <h3>
         {{state.data.title}}
         <span style="float:right">
@@ -20,7 +20,7 @@
         {{state.data.initiator}}
       </a-descriptions-item>
       <a-descriptions-item label="截止日期" :span="3">
-          {{new Date(state.data.endTime * 1000).toLocaleString()}}
+        {{new Date(state.data.endTime * 1000).toLocaleString()}}
       </a-descriptions-item>
       <a-descriptions-item label="当前状态" :span="3">
         <a-tag color="success" v-if="state.data.success === true">

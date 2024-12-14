@@ -14,9 +14,6 @@
     "types": [
       "webpack-env"
     ],
-    "typeRoots": [
-      "src/globalDeclare"
-    ],
     "paths": {
       "@/*": [
         "src/*"
