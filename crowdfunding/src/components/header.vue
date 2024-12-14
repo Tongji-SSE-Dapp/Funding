@@ -1,11 +1,11 @@
 <template>
   <header>
     <nav :class="['nav', {'nav-active': scrollTop > 0}]">
-      <a class="logo"><img src="/logo.png"></a>
+      <a class="logo"><img src="/logo2.png" alt="Logo"></a>
       <router-link to="/">所有众筹</router-link>
       <router-link to="/myself">我的众筹</router-link>
       <span :style="{ flex: 1 }"></span>
-      <a @click="handleClick">{{account}}</a>
+      <a @click="handleClick">{{ account }}</a>
     </nav>
     <h1 class="title">
       Dapp众筹平台
@@ -14,97 +14,106 @@
 </template>
 
 <script lang="ts">
-import {ref, onMounted, toRefs, defineComponent} from 'vue'
-import {useRouter} from 'vue-router'
-import {message} from 'ant-design-vue'
+import { ref, onMounted, defineComponent } from 'vue'
 import { authenticate, getAccount, addListener } from '../api/contract'
 
 export default defineComponent({
   setup() {
-    // 滚动事件
     const scrollTop = ref(0)
     onMounted(() => {
       window.addEventListener('scroll', () => {
         scrollTop.value = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
       })
     })
-    // 认证
-    const account = ref('认证');
+
+    const account = ref('认证')
     async function handleClick() {
-      await authenticate();
-      account.value = await getAccount();
+      await authenticate()
+      account.value = await getAccount()
     }
 
-    handleClick();
+    handleClick()
     addListener(handleClick)
 
-    return {scrollTop, handleClick, account}
+    return { scrollTop, handleClick, account }
   }
 })
 </script>
 
 <style scoped>
 header {
-  height: 200px;
-  background: url("/header.png") no-repeat top/cover;
+  height: 100vh; /* Set header height to fill the entire viewport */
+  background: url("/header2.png") no-repeat center center/contain; /* Ensure the image scales proportionally */
+  background-color: #f0f0f0; /* Fallback background color */
+  position: relative;
 }
-header .nav {
+
+.nav {
   display: flex;
   align-items: center;
-  padding: 0 10em;
+  padding: 0 2em; /* Adjusted for better responsiveness */
   position: fixed;
+  top: 0;
   left: 0;
   right: 0;
-  transition: all 0.3s ease;
   z-index: 10;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.8); /* Slight transparency for better contrast */
 }
+
 @media screen and (max-width: 800px) {
-  header .nav {
-    padding: 0;
+  .nav {
+    padding: 0 1em; /* Adjust padding for smaller screens */
   }
 }
-header .nav a {
+
+.nav a {
   line-height: 50px;
   padding: 0 1em;
   border: 3px solid transparent;
-  color: white;
+  color: black; /* Set font color to black */
+  text-decoration: none; /* Remove underline */
   transition: all 0.3s ease;
 }
-header .nav a:hover {
+
+.nav a:hover {
   background: var(--hover-background);
   border-top-color: var(--hover-color);
+  color: var(--hover-color); /* Optional: Change text color on hover */
 }
-header .nav a.router-link-active, header .nav a.router-link-exact-active {
+
+.nav a.router-link-active, .nav a.router-link-exact-active {
   border-top-color: var(--choose-color);
+  color: var(--choose-color); /* Active link color */
 }
-header .nav a.logo {
+
+.nav .logo {
   padding: 0;
 }
-header .nav a.logo img {
-  width: 0;
-  height: 50px;
-  opacity: 0;
-  transition: all 0.3s ease;
+
+.nav .logo img {
+  height: 50px; /* Logo size */
+  opacity: 1; /* Ensure logo is visible */
+  transition: opacity 0.3s ease;
 }
-header .nav:hover, header .nav.nav-active {
+
+.nav:hover, .nav.nav-active {
   background: #fff;
   box-shadow: var(--shadow);
 }
-header .nav:hover a, header .nav.nav-active a {
-  color: #333;
+
+.nav:hover a, .nav.nav-active a {
+  color: #333; /* Set font color to dark on hover */
 }
-header .nav.nav-active a.logo {
-  padding: 0 1em;
-}
-header .nav.nav-active a.logo img {
-  width: 50px;
-  opacity: 1;
-}
+
 .title {
   position: absolute;
   left: 4em;
   top: 3em;
-  color: white;
-  text-shadow:#FF0000 0 0 10px;
+  color: white; /* Title color */
+  text-shadow: 2px 2px 10px rgba(255, 0, 0, 0.5); /* Subtle red shadow */
+  font-size: 3em; /* Increase the font size */
+  font-weight: bold;
 }
+
 </style>

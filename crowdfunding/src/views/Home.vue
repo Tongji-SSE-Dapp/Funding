@@ -3,7 +3,7 @@
     <a-card class="ant-card-shadow">
       <template #title>
         <h3>
-          所有众筹
+          全部众筹信息
           <a-button style="float: right" @click="openModal" type="primary">发起众筹</a-button>
         </h3>
       </template>
@@ -193,3 +193,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.ant-card-shadow {
+  background-color: #d6eeff; /* Light green background */
+}
+</style>
